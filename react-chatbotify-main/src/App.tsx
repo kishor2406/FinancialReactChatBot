@@ -48,7 +48,135 @@ function App() {
 				if (params.userInput != "2") {
 					return "incorrect_answer"
 				} else {
-					return "ask_favourite_color";
+					return "ask_account_services";
+				}
+			},
+		},
+		ask_account_services: {
+			message: "Great Job! Account Services ?",
+			options: ["Balance Enquiry", "Pre-Approved Offers"],
+			path: (params: Params) => {
+				if (params.userInput != "Balance Enquiry") {
+					return "ask_pre_approved_offers"
+				} else {
+					return "ask_bal_enq";
+				}
+			},
+			//path: "ask_bal_enq"
+		},
+		ask_bal_enq: {
+			message: "Here are the details of your active accounts:"+
+			"1) For account XXXXXXXXXX5851"+ 
+			"Available Balance is INR 629.54 "+
+			"Unclear Balance is INR 0.00"+
+			"Do you have any further queries regarding your Balance Enquiry",
+			options: ["Yes", "No"],
+			path: (params: Params) => {
+				if (params.userInput != "Yes") {
+					return "ask_pre_approved_offers"
+				} else {
+					return "ask_bal_enq1";
+				}
+			},
+			//path: "ask_favourite_pet"
+		},
+		ask_bal_enq1: {
+			message: " Kindly provide more details for better assistance",
+			options: ["Yes", "No"],
+			path: (params: Params) => {
+				if (params.userInput != "Yes") {
+					return "ask_pre_approved_offers"
+				} else {
+					return "ask_bal_enq";
+				}
+			},
+			//path: "ask_favourite_pet"
+		},
+		ask_loan_services: {
+			message: "Great Job! Loan Services ?",
+			options: ["New Loan", "Existing Loan"],
+			path: (params: Params) => {
+				if (params.userInput != "New Loan") {
+					return "ask_existing_loan"
+				} else {
+					return "ask_new_loan";
+				}
+			},
+		},
+		ask_existing_loan: {
+			message: "Existing Loan amount is INR 15000.45. Do you want clear the due amount ?",
+			options: ["Yes", "No"],
+			path: (params: Params) => {
+				if (params.userInput != "Yes") {
+					return "ask_existing_loan"
+				} else {
+					return "ask_clear_loan_due_amount";
+				}
+			},
+		},
+		ask_clear_loan_due_amount: {
+			message: "Plese use your UPI or Netbanking to pay the due amount",
+			options: ["Yes", "No"],
+			path: (params: Params) => {
+				if (params.userInput != "Yes") {
+					return "ask_existing_loan"
+				} else {
+					return "ask_clear_loan_due_amount";
+				}
+			},
+		},
+		ask_new_loan: {
+			message: "Wow! There are few offers with your. Home loan is being offered you with 6.75%"+
+			" Top-up loan is being offer you with 8.00% ?",
+			options: ["Home Loan", "Top-Up Loan"],
+			path: (params: Params) => {
+				if (params.userInput != "Home Loan") {
+					return "ask_existing_loan"
+				} else {
+					return "ask_new_loan";
+				}
+			},
+		},
+		ask_creditcard_offers: {
+			message: "Great Job! Credit Card Services ?",
+			options: ["Applying new credit card", "Existing card offers"],
+			path: (params: Params) => {
+				if (params.userInput != "Applying new credit card") {
+					return "ask_existing_loan"
+				} else {
+					return "ask_new_loan";
+				}
+			},
+		},
+		ask_pre_approved_offers: {
+			message: "Sorry! Currently you do not have any pre-approved offers."+
+			"Would you like to apply for any products",
+			//path: "ask_favourite_pet"
+			options: ["Yes", "No"],
+			path: (params: Params) => {
+				if (params.userInput != "Yes") {
+					return "ask_pre_approved_offers"
+				} else {
+					return "ask_offers";
+				}
+			},
+		},
+		ask_offers: {
+			message: "To apply for any products of our bank the following:"+
+			"1. Please click below to apply for a insta saving account abc/123"+
+			"2. Please click below to apply for a credit card abc/456"+
+			"3. Please click below to apply for a loan abc/4566"+
+			"Is there anything else i can help you",
+			//path: "ask_favourite_pet"
+			options: ["1", "2","3"],
+			path: (params: Params) => {
+				if (params.userInput == "1") {
+					return "ask_insta_saving_account"
+				} else if (params.userInput == "2") {
+					return "ask_creditcard_offers";
+				}
+				else{
+					return "ask_loan_offers";
 				}
 			},
 		},
