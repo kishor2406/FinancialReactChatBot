@@ -139,27 +139,12 @@ function App() {
 		},
 		ask_creditcard_offers: {
 			message: "Great Job! Credit Card Services ?",
-			options: ["Upgrade credit card", "Existing card offers"],
+			options: ["Applying new credit card", "Existing card offers"],
 			path: (params: Params) => {
-				if (params.userInput == "Upgrade credit card") {
-					return "ask_update_creditcard"
+				if (params.userInput != "Applying new credit card") {
+					return "ask_existing_loan"
 				} else {
 					return "ask_new_loan";
-				}
-			},
-		},
-		ask_update_creditcard: {
-			message: "Upgrade amount! Credit Card Services ?",
-			options: ["Upgrade credit card to 1 Lakh", "Upgrade credit card to 2 Lakh","Other amount"],
-			path: (params: Params) => {
-				if (params.userInput == "Upgrade credit card to 1 Lakh") {
-					return "ask_existing_loan"
-				} else if (params.userInput == "Upgrade credit card to 2 Lakh") {
-					return "ask_existing_loan";
-				}
-				else
-				{
-					return "ask_existing_loan";
 				}
 			},
 		},
