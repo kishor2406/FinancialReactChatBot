@@ -3,6 +3,13 @@ import ChatBot from "./components/ChatBot";
 import { Flow } from "./types/Flow";
 import { Params } from "./types/Params";
 
+// const app_id=process.env.REACT_APP_PARSE_APP_ID;
+// const host_url=process.env.REACT_APP_PARSE_HOST_URL;
+// const javascript_key=process.env.REACT_APP_PARSE_JAVASCRIPT_KEY;
+
+// Parse.initialize(app_id,javascript_key);
+// Parse.serverURL=host_url;
+
 function App() {
 	const [name, setName] = useState("")
 
@@ -66,8 +73,8 @@ function App() {
 		},
 		ask_bal_enq: {
 			message: "Here are the details of your active accounts:"+
-			"1) For account XXXXXXXXXX5851"+ 
-			"Available Balance is INR 629.54 "+
+			"1) For account XX5851"+ 
+			"Available Balance is INR 629 "+
 			"Unclear Balance is INR 0.00"+
 			"Do you have any further queries regarding your Balance Enquiry",
 			options: ["Yes", "No"],
@@ -139,14 +146,62 @@ function App() {
 		},
 		ask_creditcard_offers: {
 			message: "Great Job! Credit Card Services ?",
-			options: ["Applying new credit card", "Existing card offers"],
+			options: ["Upgrade credit card", "Existing card offers"],
 			path: (params: Params) => {
-				if (params.userInput != "Applying new credit card") {
-					return "ask_existing_loan"
+				if (params.userInput == "Upgrade credit card") {
+					return "ask_update_creditcard"
 				} else {
 					return "ask_new_loan";
 				}
 			},
+		},
+		ask_update_creditcard: {
+			message: "Upgrade amount! Credit Card Services ?",
+			options: ["Upgrade credit card to 1 Lakh", "Upgrade credit card to 2 Lakh","Other amount"],
+			path: (params: Params) => {
+				if (params.userInput == "Upgrade credit card to 1 Lakh") {
+					return "ask_update_1_lakh"
+				} else if (params.userInput == "Upgrade credit card to 2 Lakh") {
+					return "ask_update_2_lakh";
+				}
+				else
+				{
+					return "ask_update_2_lakh";
+				}
+			},
+		},
+		ask_update_1_lakh: {
+			message: "Great Job! Upgrade credit card to 1 Lakh",
+			options: ["Do you want to wifi enabled", "No need to enable wifi opw"],
+			path: (params: Params) => {
+				if (params.userInput == "Do you want to wifi enabled") {
+					return "ask_wifi_enable"
+				} else {
+					return "ask_bal_enq";
+				}
+			}
+		},
+		ask_update_2_lakh: {
+			message: "Great Job! Upgrade credit card to 2 Lakh",
+			options: ["Do you want to wifi enabled", "No need to enable wifi opw"],
+			path: (params: Params) => {
+				if (params.userInput == "Do you want to wifi enabled") {
+					return "ask_wifi_enable"
+				} else {
+					return "ask_bal_enq";
+				}
+			}
+		},
+		ask_wifi_enable: {
+			message: "Nice to update you that your card has enabled wifi option upto 2000",
+			options: ["Yes","No","Increase amt"],
+			path: (params: Params) => {
+				if (params.userInput == "Yes") {
+					return "ask_weather"
+				} else {
+					return "ask_weather";
+				}
+			}
 		},
 		ask_pre_approved_offers: {
 			message: "Sorry! Currently you do not have any pre-approved offers."+
@@ -155,7 +210,7 @@ function App() {
 			options: ["Yes", "No"],
 			path: (params: Params) => {
 				if (params.userInput != "Yes") {
-					return "ask_pre_approved_offers"
+					return "ask_offers"
 				} else {
 					return "ask_offers";
 				}
@@ -163,7 +218,7 @@ function App() {
 		},
 		ask_offers: {
 			message: "To apply for any products of our bank the following:"+
-			"1. Please click below to apply for a insta saving account abc/123"+
+			"1. Please click below to apply for a dmat account abc/123"+
 			"2. Please click below to apply for a credit card abc/456"+
 			"3. Please click below to apply for a loan abc/4566"+
 			"Is there anything else i can help you",
@@ -171,7 +226,7 @@ function App() {
 			options: ["1", "2","3"],
 			path: (params: Params) => {
 				if (params.userInput == "1") {
-					return "ask_insta_saving_account"
+					return "ask_dmat_account"
 				} else if (params.userInput == "2") {
 					return "ask_creditcard_offers";
 				}
@@ -180,9 +235,9 @@ function App() {
 				}
 			},
 		},
-		ask_favourite_color: {
-			message: "Great Job! What is your favourite color?",
-			path: "ask_favourite_pet"
+		ask_dmat_account: {
+			message: "Great Job! Your dmat account is created XXX123?",
+			path: "ask_creditcard_offers"
 		},
 		ask_favourite_pet: {
 			message: "Interesting! Pick any 2 pets below.",
